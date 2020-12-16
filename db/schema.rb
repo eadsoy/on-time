@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_110022) do
+ActiveRecord::Schema.define(version: 2020_12_16_215942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2020_12_01_110022) do
     t.bigint "start_id"
     t.bigint "end_id"
     t.string "route"
+    t.float "start"
+    t.float "end"
     t.index ["end_id"], name: "index_routes_on_end_id"
     t.index ["playlist_id"], name: "index_routes_on_playlist_id"
     t.index ["start_id"], name: "index_routes_on_start_id"

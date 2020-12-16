@@ -13,8 +13,11 @@
 <div class="results">
 </div>
 
-<%= simple_form_for [@home, @route] do |f| %>
-  <%= f.input :start_address %>
-  <%= f.input :end_address %>
-  <%= f.submit %>
-<% end %>
+
+
+<form action="#" id="user-form">
+     <div class="form-group">
+          <input type="text" name="content" id="address"  placeholder="Type your address">
+          <input type="submit" value="Send" class="btn btn-primary">
+     </div>
+</form>
