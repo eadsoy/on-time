@@ -3,21 +3,10 @@
      data-markers="<%= @markers.to_json %>"
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 
-<form action="#" id="user-form">
-     <div class="form-group">
-          <input type="text" name="content" id="address"  placeholder="Type your address">
-          <input type="submit" value="Send" class="btn btn-primary">
-     </div>
-</form>
-
-<div class="results">
-</div>
+<%= simple_form_for @route do |f| %>
+  <%= f.input :start %>
+  <%= f.input :end %>
+  <%= f.submit 'Submit', name: 'create_and_add', class: 'btn-main-yellow small ml-2'%>
+<% end %>
 
 
-
-<form action="#" id="user-form">
-     <div class="form-group">
-          <input type="text" name="content" id="address"  placeholder="Type your address">
-          <input type="submit" value="Send" class="btn btn-primary">
-     </div>
-</form>

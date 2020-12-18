@@ -6,17 +6,21 @@ class Route < ApplicationRecord
   # has_one :start
   # has_one :end
   # store :route, accessors: [ :start, :end ]
+  serialize :start, Array
+  serialize :end, Array
   serialize :route, Array
 
 
   def self.get_route(start_point, end_point)
+    start_point_coor = Geocoder.search(start_point)
+    end_point_coor = Geocoder.search(end_point)
     Mapbox.access_token = ENV['MAPBOX_API_KEY']
     route = Mapbox::Directions.directions([{
-      "longitude" => start_point.longitude,
-      "latitude" => start_point.latitude
+      "longitude" => start_point_coor.longitude,
+      "latitude" => start_point_coor.latitude
     }, {
-      "longitude" => end_point.longitude,
-      "latitude" => end_point.latitude
+      "longitude" => end_point_coor.longitude,
+      "latitude" => end_point_coor.latitude
       }], "driving", {
         geometries: "geojson"
       })
