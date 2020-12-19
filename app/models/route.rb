@@ -31,4 +31,3 @@ class Route < ApplicationRecord
 end
 
 # date, check distance, check duration,check user_id,  playlist_id, check start_id, check end_id
-
