@@ -1,4 +1,4 @@
-require "mapbox-sdk"
+# require "mapbox-sdk"
 
 class Route < ApplicationRecord
   belongs_to :user
@@ -10,23 +10,25 @@ class Route < ApplicationRecord
   serialize :end, Array
   serialize :route, Array
 
-
-  def self.get_route(start_point, end_point)
+  def get_route(start_point, end_point)
     start_point_coor = Geocoder.search(start_point)
     end_point_coor = Geocoder.search(end_point)
     Mapbox.access_token = ENV['MAPBOX_API_KEY']
     route = Mapbox::Directions.directions([{
-      "longitude" => start_point_coor.longitude,
-      "latitude" => start_point_coor.latitude
-    }, {
-      "longitude" => end_point_coor.longitude,
-      "latitude" => end_point_coor.latitude
+        "longitude" => start_point_coor.first.data['lon'].to_f,
+        "latitude" => start_point_coor.first.data['lat'].to_f
+      }, {
+        "longitude" => end_point_coor.first.data['long'].to_f,
+        "latitude" => end_point_coor.first.data['lat'].to_f
       }], "driving", {
-        geometries: "geojson"
-      })
-      route_steps = route.first['routes'].first['geometry']['coordinates']
-      route_distance = route.drivingDirections.first['routes'].first['distance']
-      route_duration = route.drivingDirections.first['routes'].first['duration']
+      geometries: "geojson"
+    })
+    @route_steps = route.first['routes'].first['geometry']['coordinates']
+    @route_distance = route.first['routes'].first['distance']
+    @route_duration = route.first['routes'].first['duration']
+    gon.route = @route_steps
+    gon.duration = @route_duration
+    gon.distance = @route_distance
   end
 end
 

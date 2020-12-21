@@ -1,0 +1,48 @@
+import mapboxgl from 'mapbox-gl';
+
+const initMapbox = () => {
+  const mapElement = document.getElementById('map');
+
+  if (mapElement) { // only build a map if there's a div#map to inject into
+    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10'
+    });
+  }
+
+  route = gon.route
+  map.addLayer({
+    "id": "route",
+    "type": "line",
+    "source": {
+      "type": "geojson",
+      "data": {
+        "type": "Feature",
+        "properties": {},
+        "geometry": route
+      }
+    },
+    "layout": {
+      "line-join": "round",
+      "line-cap": "round"
+    },
+    "paint": {
+      "line-color": "#3b9ddd",
+      "line-width": 8,
+      "line-opacity": 0.8
+    }
+  });
+
+};
+
+
+
+export { initMapbox };
+
+// adds the route as a layer on the map
+// function addRoute (coords) {
+  // check if the route is already loaded
+
+// }
+

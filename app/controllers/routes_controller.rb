@@ -1,11 +1,11 @@
+
 class RoutesController < ApplicationController
+  skip_before_action :authenticate_user!
   def create
-    raise
-    params[:route] = Route.get_route(@start, @end)
-    @route = Route.new(route_params)
-    if @route.save
-      render :root
-    end
+    @start = params[:route][:start]
+    @end = params[:route][:end]
+    see = Route.new.get_route(@start, @end)
+    p see
   end
 
   private
@@ -13,6 +13,4 @@ class RoutesController < ApplicationController
   def route_params
     params.require(:route).permit(:start, :end, :route)
   end
-
-
 end

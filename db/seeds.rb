@@ -74,7 +74,7 @@ def get_route(start_point, end_point)
   mapbox_start = [start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f]
   p geo_start
   p mapbox_start
-  # p @route_steps
+  p @route_steps
   # p @route_duration
   # p @route_distance
   # p Geocoder::Calculations.distance_between([start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f], [end_point_coor.first.data['long'].to_f, end_point_coor.first.data['lat'].to_f])
