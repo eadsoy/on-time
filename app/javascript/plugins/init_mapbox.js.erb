@@ -11,29 +11,31 @@ const initMapbox = () => {
     });
   }
 
-  route = gon.route
-  map.addLayer({
-    "id": "route",
-    "type": "line",
-    "source": {
-      "type": "geojson",
-      "data": {
-        "type": "Feature",
-        "properties": {},
-        "geometry": route
+  const route = gon.route
+  let turfRoute = turf.lineString(route);
+  map.on('load', function () {
+    map.addLayer({
+      "id": "route",
+      "type": "line",
+      "source": {
+        "type": "geojson",
+        "data": {
+          "type": "Feature",
+          "properties": {},
+          "geometry": route
+        }
+      },
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#3b9ddd",
+        "line-width": 8,
+        "line-opacity": 0.8
       }
-    },
-    "layout": {
-      "line-join": "round",
-      "line-cap": "round"
-    },
-    "paint": {
-      "line-color": "#3b9ddd",
-      "line-width": 8,
-      "line-opacity": 0.8
-    }
+    });
   });
-
 };
 
 

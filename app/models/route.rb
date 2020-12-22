@@ -26,9 +26,6 @@ class Route < ApplicationRecord
     @route_steps = route.first['routes'].first['geometry']['coordinates']
     @route_distance = route.first['routes'].first['distance']
     @route_duration = route.first['routes'].first['duration']
-    gon.route = @route_steps
-    gon.duration = @route_duration
-    gon.distance = @route_distance
   end
 end
 
