@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_215942) do
+ActiveRecord::Schema.define(version: 2020_12_22_070553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ends", force: :cascade do |t|
-    t.float "longitude"
-    t.float "latitude"
-    t.string "address"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "playlists", force: :cascade do |t|
     t.string "title"
@@ -37,23 +29,11 @@ ActiveRecord::Schema.define(version: 2020_12_16_215942) do
     t.bigint "playlist_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "start_id"
-    t.bigint "end_id"
     t.string "route"
     t.float "start"
     t.float "end"
-    t.index ["end_id"], name: "index_routes_on_end_id"
     t.index ["playlist_id"], name: "index_routes_on_playlist_id"
-    t.index ["start_id"], name: "index_routes_on_start_id"
     t.index ["user_id"], name: "index_routes_on_user_id"
-  end
-
-  create_table "starts", force: :cascade do |t|
-    t.float "longitude"
-    t.float "latitude"
-    t.string "address"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tracks", force: :cascade do |t|

@@ -12,7 +12,7 @@ const initMapbox = () => {
   }
 
   const route = gon.route
-  let turfRoute = turf.lineString(route);
+  // let turfRoute = turf.lineString(route);
   map.on('load', function () {
     map.addLayer({
       "id": "route",
@@ -36,6 +36,9 @@ const initMapbox = () => {
       }
     });
   });
+
+  $('#new-band a').parent().append("<%= j render 'form' , band: @route%>")
+
 };
 
 
