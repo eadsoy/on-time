@@ -4,7 +4,10 @@ class RoutesController < ApplicationController
   def create
     @start = params[:route][:start]
     @end = params[:route][:end]
-    see = Route.new.get_route(@start, @end)
+    @route = Route.new.get_route(@start, @end)
+    gon.route = @route.route_steps
+    gon.duration = @route.route_duration
+    gon.distance = @route.route_distance
     p see
   end
 
