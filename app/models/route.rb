@@ -14,7 +14,8 @@ class Route < ApplicationRecord
     start_point_coor = Geocoder.search(start_point)
     end_point_coor = Geocoder.search(end_point)
     Mapbox.access_token = ENV['MAPBOX_API_KEY']
-    route = Mapbox::Directions.directions([{
+    route = Mapbox::Directions.directions([
+      {
         "longitude" => start_point_coor.first.data['lon'].to_f,
         "latitude" => start_point_coor.first.data['lat'].to_f
       }, {
@@ -22,7 +23,7 @@ class Route < ApplicationRecord
         "latitude" => end_point_coor.first.data['lat'].to_f
       }], "driving", {
       geometries: "geojson"
-    })
+      })
     @route_steps = route.first['routes'].first['geometry']['coordinates']
     @route_distance = route.first['routes'].first['distance']
     @route_duration = route.first['routes'].first['duration']
