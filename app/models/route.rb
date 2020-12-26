@@ -29,5 +29,5 @@ class Route < ApplicationRecord
     @route_duration = route.first['routes'].first['duration']
   end
 end
-
+# FIXME 
 # date, check distance, check duration,check user_id,  playlist_id, check start_id, check end_id
