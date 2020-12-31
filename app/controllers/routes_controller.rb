@@ -4,16 +4,19 @@ class RoutesController < ApplicationController
   def create
     @start = params[:route][:start]
     @end = params[:route][:end]
-    @route = Route.new.get_route(@start, @end)
-    gon.route = @route.route_steps
-    gon.duration = @route.route_duration
-    gon.distance = @route.route_distance
-    p see
+    @route_first = Route.new.get_route(@start, @end)
+    @route = Route.new(route_params)
+    gon.route = @route.route
+    gon.duration = @route.duration
+    gon.distance = @route.distance
+    if @route.save 
+      render :root
+    end
   end
 
   private
 
   def route_params
-    params.require(:route).permit(:start, :end, :route)
+    params.require(:route).permit(:start, :end, :route, :distance, :duration)
   end
 end

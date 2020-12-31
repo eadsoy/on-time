@@ -4,10 +4,7 @@
      data-markers="<%= @markers.to_json %>"
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 
-
-
-
-<%= simple_form_for @route, remote: true do |f| %>
+<%= simple_form_for @route do |f| %>
     <%= f.input :start, as: :string, input_html: { id: 'search'} %>
     <%= f.input :end, as: :string, input_html: { id: 'search-end'} %>
     <%= f.submit "Send", class: 'btn btn-dark' %>
