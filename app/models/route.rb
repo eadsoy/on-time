@@ -29,6 +29,7 @@ class Route < ApplicationRecord
       })
     route_params = {}
     route_params[:route] = get_route.first['routes'].first['geometry']['coordinates']
+    p route_params[:route]
     route_params[:distance] = get_route.first['routes'].first['distance']
     route_params[:duration] = get_route.first['routes'].first['duration']
     route_params[:start] = start_lon_lat
@@ -36,6 +37,7 @@ class Route < ApplicationRecord
     route_params[:user] = User.last
     route_params[:playlist] = Playlist.last
     route_params
+    
   end
   
 end

@@ -1,24 +1,17 @@
 import mapboxgl from "mapbox-gl";
-
 const initMapbox = () => {
   const mapElement = document.getElementById("map");
+  const userRoute = gon.route;
+  console.log(userRoute);
+  console.log("hello");
 
-  if (mapElement) {
-    // only build a map if there's a div#map to inject into
-    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
-    const map = new mapboxgl.Map({
-      container: "map",
-      style: "mapbox://styles/mapbox/streets-v10",
-    });
-  }
-
-  // gon.start = @route.route.first
-  // gon.end = @route.route.last
-  // gon.route = @route.route
-  // gon.duration = @route.duration
-  // gon.distance = @route.distance
-
-  const route = gon.route;
+  // if (mapElement) {
+  // only build a map if there's a div#map to inject into
+  mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+  const map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v10",
+  });
   // let turfRoute = turf.lineString(route);
   map.on("load", function () {
     map.addLayer({
@@ -29,7 +22,10 @@ const initMapbox = () => {
         data: {
           type: "Feature",
           properties: {},
-          geometry: route,
+          geometry: {
+            type: "LineString",
+            coordinates: userRoute,
+          },
         },
       },
       layout: {
@@ -43,9 +39,13 @@ const initMapbox = () => {
       },
     });
   });
-
-  $("#new-band a").parent().append("<%= j render 'form' , band: @route%>");
 };
+// gon.start = @route.route.first
+// gon.end = @route.route.last
+// gon.route = @route.route
+// gon.duration = @route.duration
+// gon.distance = @route.distance
+// };
 
 export { initMapbox };
 
