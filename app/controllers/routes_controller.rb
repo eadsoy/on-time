@@ -6,7 +6,7 @@ class RoutesController < ApplicationController
     @start = params[:route][:start]
     @end = params[:route][:end]
     @route = Route.new(Route.get_route(@start, @end))
-    if @route.save 
+    if @route.save!
       redirect_to root_path
     else
       raise

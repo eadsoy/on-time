@@ -25,8 +25,8 @@
 # end
 
 
-require "mapbox-sdk"
-Mapbox.access_token = ENV['MAPBOX_API_KEY']
+# require "mapbox-sdk"
+# Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
 # drivingDirections = Mapbox::Directions.directions([{
 #   "longitude" => -100,
@@ -53,32 +53,47 @@ Mapbox.access_token = ENV['MAPBOX_API_KEY']
 #   "longitude": -90
 # })
 
-def get_route(start_point, end_point)
-  start_point_coor = Geocoder.search(start_point)
-  end_point_coor = Geocoder.search(end_point)
-  Mapbox.access_token = ENV['MAPBOX_API_KEY']
-  route = Mapbox::Directions.directions([{
-    "longitude" => start_point_coor.first.data['lon'].to_f,
-    "latitude" => start_point_coor.first.data['lat'].to_f
-  }, {
-    "longitude" => end_point_coor.first.data['long'].to_f,
-    "latitude" => end_point_coor.first.data['lat'].to_f
-    }], "driving", {
-      geometries: "geojson"
-    })
-  @route_steps = route.first['routes'].first['geometry']['coordinates']
-  @route_distance = route.first['routes'].first['distance']
-  @route_duration = route.first['routes'].first['duration']
+# def get_route(start_point, end_point)
+#   start_point_coor = Geocoder.search(start_point)
+#   end_point_coor = Geocoder.search(end_point)
+#   Mapbox.access_token = ENV['MAPBOX_API_KEY']
+#   route = Mapbox::Directions.directions([{
+#     "longitude" => start_point_coor.first.data['lon'].to_f,
+#     "latitude" => start_point_coor.first.data['lat'].to_f
+#   }, {
+#     "longitude" => end_point_coor.first.data['long'].to_f,
+#     "latitude" => end_point_coor.first.data['lat'].to_f
+#     }], "driving", {
+#       geometries: "geojson"
+#     })
+#   @route_steps = route.first['routes'].first['geometry']['coordinates']
+#   @route_distance = route.first['routes'].first['distance']
+#   @route_duration = route.first['routes'].first['duration']
 
-  geo_start = Mapbox::Geocoder.geocode_forward(start_point).first['features'].first['geometry']['coordinates']
-  mapbox_start = [start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f]
-  p geo_start
-  p mapbox_start
-  p @route_steps
-  # p @route_duration
-  # p @route_distance
-  # p Geocoder::Calculations.distance_between([start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f], [end_point_coor.first.data['long'].to_f, end_point_coor.first.data['lat'].to_f])
-end
+#   geo_start = Mapbox::Geocoder.geocode_forward(start_point).first['features'].first['geometry']['coordinates']
+#   mapbox_start = [start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f]
+#   p geo_start
+#   p mapbox_start
+#   p @route_steps
+#   # p @route_duration
+#   # p @route_distance
+#   # p Geocoder::Calculations.distance_between([start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f], [end_point_coor.first.data['long'].to_f, end_point_coor.first.data['lat'].to_f])
+# end
 
-get_route('Galata Tower', 'Büyükdere Cd., İstanbul')
+# get_route('Galata Tower', 'Büyükdere Cd., İstanbul')
 
+puts 'Creating User Esin'
+
+User.create!(
+  email: 'esin.adsoy@gmail.com',
+  password: '111111'
+)
+puts 'User created'
+
+puts 'Creating Esin\'s playlist:'
+
+Playlist.create!(
+  title: 'my playlist'
+)
+
+puts 'Playlist created'

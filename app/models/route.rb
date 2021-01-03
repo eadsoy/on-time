@@ -14,14 +14,16 @@ class Route < ApplicationRecord
   def self.get_route(start_point, end_point)
     start_point_coor = Geocoder.search(start_point)
     end_point_coor = Geocoder.search(end_point)
+    start_lon_lat = [start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f]
+    end_lon_lat = [end_point_coor.first.data['lon'].to_f, end_point_coor.first.data['lat'].to_f]
     Mapbox.access_token = ENV['MAPBOX_API_KEY']
     get_route = Mapbox::Directions.directions([
       {
-        "longitude" => start_point_coor.first.data['lon'].to_f,
-        "latitude" => start_point_coor.first.data['lat'].to_f
+        "longitude" => start_lon_lat.first,
+        "latitude" => start_lon_lat.last
       }, {
-        "longitude" => end_point_coor.first.data['lon'].to_f,
-        "latitude" => end_point_coor.first.data['lat'].to_f
+        "longitude" => end_lon_lat.first,
+        "latitude" => end_lon_lat.last
       }], "driving", {
       geometries: "geojson"
       })
@@ -29,18 +31,10 @@ class Route < ApplicationRecord
     route_params[:route] = get_route.first['routes'].first['geometry']['coordinates']
     route_params[:distance] = get_route.first['routes'].first['distance']
     route_params[:duration] = get_route.first['routes'].first['duration']
-    start_coor = []
-    end_coor = []
-    start_coor << start_point_coor.first.data['lon'].to_f
-    start_coor << start_point_coor.first.data['lat'].to_f
-    end_coor << end_point_coor.first.data['lon'].to_f
-    end_coor << end_point_coor.first.data['lat'].to_f
-    raise
-    route_params[:start] = []
-    route_params[:start] << start_coor
-    route_params[:end] = []
-    route_params[:end] << end_coor
-    
+    route_params[:start] = [start_lon_lat.first, start_lon_lat.last]
+    route_params[:end] = [end_lon_lat.first, end_lon_lat.last]
+    route_params[:user] = User.last
+    route_params[:playlist] = Playlist.last
     route_params
   end
   
