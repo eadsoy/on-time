@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @route = Route.new
-    if Route.last != nil
+    if Route.last != nil  #FIXME use presence
       route_last = Route.last
       gon.start = route_last.start
       gon.end = route_last.end

@@ -4,14 +4,12 @@ const initMapbox = () => {
   const mapElement = document.getElementById("map");
   const userRoute = gon.route;
   console.log(userRoute);
-  console.log("hello");
-
   // if (mapElement) {
   // only build a map if there's a div#map to inject into
   mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
   const map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/mapbox/streets-v10",
+    style: "mapbox://styles/mapbox/light-v10",
   });
   // let turfRoute = turf.lineString(route);
   map.on("load", function () {
@@ -34,12 +32,25 @@ const initMapbox = () => {
         "line-cap": "round",
       },
       paint: {
-        "line-color": "#3b9ddd",
-        "line-width": 8,
-        "line-opacity": 0.8,
+        "line-color": "#DC143C",
+        "line-width": 1.6,
+        "line-dasharray": [1.2, 3],
       },
     });
   });
+
+  var directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken,
+    unit: "metric",
+    profile: "mapbox/driving",
+    alternatives: false,
+    geometries: "geojson",
+    controls: { instructions: false },
+    flyTo: false,
+  });
+
+  map.addControl(directions, "top-right");
+  map.scrollZoom.enable();
 };
 // gon.start = @route.route.first
 // gon.end = @route.route.last

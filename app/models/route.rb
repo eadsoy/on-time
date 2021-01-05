@@ -1,6 +1,5 @@
 # require "mapbox-sdk"
 class Route < ApplicationRecord
-  # before_save :get_route
   belongs_to :user
   belongs_to :playlist
   # has_one :start
@@ -29,17 +28,17 @@ class Route < ApplicationRecord
       })
     route_params = {}
     route_params[:route] = get_route.first['routes'].first['geometry']['coordinates']
-    p route_params[:route]
+    # p route_params[:route]
     route_params[:distance] = get_route.first['routes'].first['distance']
     route_params[:duration] = get_route.first['routes'].first['duration']
     route_params[:start] = start_lon_lat
     route_params[:end] = end_lon_lat
     route_params[:user] = User.last
     route_params[:playlist] = Playlist.last
+
     route_params
-    
   end
   
 end
 # FIXME 
-# date, check distance, check duration,check user_id,  playlist_id, check start_id, check end_id
+# route.playlist, route.user
