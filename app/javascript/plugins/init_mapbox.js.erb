@@ -2,10 +2,17 @@ import { data } from "jquery";
 
 const initMapbox = () => {
   const mapElement = document.getElementById("map");
-  const userRoute = gon.route;
-  const button = document.getElementById("btn-submit");
+  // Check if a route exists
+  let userRoute;
+  if (typeof gon !== "undefined") {
+    userRoute = gon.route;
+  } else {
+    userRoute = [];
+  }
 
+  const button = document.getElementById("btn-submit");
   console.log(userRoute);
+
   if (mapElement) {
     // only build a map if there's a div#map to inject into
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
@@ -13,6 +20,7 @@ const initMapbox = () => {
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
     });
+
     // draw routes from db (not dynamic route from mapbox directions)
     map.on("load", function () {
       map.addLayer({
@@ -82,6 +90,7 @@ const initMapbox = () => {
         console.log(data);
       });
   };
+
   // get start and end points from form input fields
   const inputStart = document.getElementsByTagName("input")[0];
   const inputEnd = document.getElementsByTagName("input")[1];
