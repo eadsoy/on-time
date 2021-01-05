@@ -54,7 +54,7 @@ const initMapbox = () => {
     map.scrollZoom.enable();
   }
 
-  // send user input to routes controller, save to db and draw route on map from db
+  // save route to db and draw route on map from db
   const sendLocation = (start, end) => {
     const data = {
       route: {
