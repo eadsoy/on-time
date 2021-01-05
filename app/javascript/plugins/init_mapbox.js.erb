@@ -4,6 +4,9 @@ const initMapbox = () => {
   const mapElement = document.getElementById("map");
   const userRoute = gon.route;
   const button = document.getElementById("btn-submit");
+  const fieldOne = document.getElementsByTagName("input")[0];
+  const fieldTwo = document.getElementsByTagName("input")[1];
+
   console.log(userRoute);
   if (mapElement) {
     // only build a map if there's a div#map to inject into
@@ -12,6 +15,7 @@ const initMapbox = () => {
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
     });
+    // draw routes from db (not dynamic route from mapbox directions)
     map.on("load", function () {
       map.addLayer({
         id: "route",
@@ -47,14 +51,12 @@ const initMapbox = () => {
       controls: { instructions: false },
       flyTo: false,
     });
-
+    // add directions control to map
     map.addControl(directions, "top-right");
     map.scrollZoom.enable();
   }
 
-  const fieldOne = document.getElementsByTagName("input")[0];
-  const fieldTwo = document.getElementsByTagName("input")[1];
-
+  // send user input to routes controller, save to db and draw route on map from db
   const sendLocation = (start, end) => {
     const data = {
       route: {
@@ -82,20 +84,18 @@ const initMapbox = () => {
         console.log(data);
       });
   };
-
+  // get start and end points from directions form input fields
   let start, end;
   fieldOne.addEventListener("change", function () {
-    start = document.getElementsByTagName("input")[0].value;
-    // sendLocation(start);
+    start = this.value;
     console.log(start);
   });
 
   fieldTwo.addEventListener("change", function () {
-    end = document.getElementsByTagName("input")[1].value;
-    // sendLocation(end);
+    end = this.value;
     console.log(end);
   });
-
+  // request on click
   button.addEventListener("click", function () {
     sendLocation(start, end);
   });
