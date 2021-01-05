@@ -1,55 +1,53 @@
-import mapboxgl from "mapbox-gl";
-
 const initMapbox = () => {
   const mapElement = document.getElementById("map");
   const userRoute = gon.route;
   console.log(userRoute);
-  // if (mapElement) {
-  // only build a map if there's a div#map to inject into
-  mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
-  const map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/light-v10",
-  });
-  // let turfRoute = turf.lineString(route);
-  map.on("load", function () {
-    map.addLayer({
-      id: "route",
-      type: "line",
-      source: {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates: userRoute,
+  if (mapElement) {
+    // only build a map if there's a div#map to inject into
+    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/eadsoy/ckgse1ml914b219o6q8av01sc",
+    });
+    map.on("load", function () {
+      map.addLayer({
+        id: "route",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "LineString",
+              coordinates: userRoute,
+            },
           },
         },
-      },
-      layout: {
-        "line-join": "round",
-        "line-cap": "round",
-      },
-      paint: {
-        "line-color": "#4ef542",
-        "line-width": 1.6,
-      },
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#45286b",
+          "line-width": 1.6,
+        },
+      });
     });
-  });
 
-  var directions = new MapboxDirections({
-    accessToken: mapboxgl.accessToken,
-    unit: "metric",
-    profile: "mapbox/driving",
-    alternatives: false,
-    geometries: "geojson",
-    controls: { instructions: false },
-    flyTo: false,
-  });
+    var directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: "metric",
+      profile: "mapbox/driving",
+      alternatives: false,
+      geometries: "geojson",
+      controls: { instructions: false },
+      flyTo: false,
+    });
 
-  map.addControl(directions, "top-right");
-  map.scrollZoom.enable();
+    map.addControl(directions, "top-right");
+    map.scrollZoom.enable();
+  }
 };
 // gon.start = @route.route.first
 // gon.end = @route.route.last
