@@ -7,7 +7,7 @@ const initMapbox = () => {
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
       container: "map",
-      style: "mapbox://styles/eadsoy/ckgse1ml914b219o6q8av01sc",
+      style: "mapbox://styles/mapbox/light-v10",
     });
     map.on("load", function () {
       map.addLayer({
@@ -48,6 +48,33 @@ const initMapbox = () => {
     map.addControl(directions, "top-right");
     map.scrollZoom.enable();
   }
+
+  const fieldOne = document.getElementsByTagName("input")[0];
+  const fieldTwo = document.getElementsByTagName("input")[1];
+
+  const sendLocation = (location) => {
+    fetch("/routes", {
+      method: "POST",
+      body: JSON.stringify(location),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        alert("sent!");
+      });
+  };
+
+  fieldOne.addEventListener("change", function () {
+    const start = document.getElementsByTagName("input")[0].value;
+    // sendLocation(start);
+    console.log(start);
+  });
+
+  fieldTwo.addEventListener("change", function () {
+    const end = document.getElementsByTagName("input")[1].value;
+    // sendLocation(end);
+    console.log(end);
+  });
 };
 // gon.start = @route.route.first
 // gon.end = @route.route.last
