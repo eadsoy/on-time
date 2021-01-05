@@ -4,8 +4,6 @@ const initMapbox = () => {
   const mapElement = document.getElementById("map");
   const userRoute = gon.route;
   const button = document.getElementById("btn-submit");
-  const fieldOne = document.getElementsByTagName("input")[0];
-  const fieldTwo = document.getElementsByTagName("input")[1];
 
   console.log(userRoute);
   if (mapElement) {
@@ -84,14 +82,17 @@ const initMapbox = () => {
         console.log(data);
       });
   };
-  // get start and end points from directions form input fields
+  // get start and end points from form input fields
+  const inputStart = document.getElementsByTagName("input")[0];
+  const inputEnd = document.getElementsByTagName("input")[1];
+
   let start, end;
-  fieldOne.addEventListener("change", function () {
+  inputStart.addEventListener("change", function () {
     start = this.value;
     console.log(start);
   });
 
-  fieldTwo.addEventListener("change", function () {
+  inputEnd.addEventListener("change", function () {
     end = this.value;
     console.log(end);
   });
