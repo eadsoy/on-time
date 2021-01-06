@@ -16,7 +16,7 @@ class Route < ApplicationRecord
     case match_start
     when true
       @start_lon_lat = start_point.chomp.split(',').map(&:to_f)
-      @start_point_coor = @start_lon_lat
+      @start_point_coor = @start_lon_lat // FIXME check this
     else
       # @start_point_coor = Geocoder.search(start_point)
       @start_point_coor = Mapbox::Geocoder.geocode_forward(start_point).first['features'].first['geometry']['coordinates']
