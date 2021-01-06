@@ -3,15 +3,32 @@ import { data } from "jquery";
 const initMapbox = () => {
   const mapElement = document.getElementById("map");
   // Check if a route exists
-  let userRoute;
+  let userRoute, userRoutes;
+  const routesArr = [];
   if (typeof gon !== "undefined") {
     userRoute = gon.route;
+    userRoutes = gon.routes;
+
+    userRoutes.forEach((route) => {
+      routesArr.push({
+        type: "Feature",
+        properties: {
+          color: "#F7455D", // red
+        },
+        geometry: {
+          type: "LineString",
+          coordinates: route,
+        },
+      });
+    });
   } else {
     userRoute = [];
+    userRoutes = [];
   }
 
   const button = document.getElementById("btn-submit");
   console.log(userRoute);
+  console.log(userRoutes);
 
   if (mapElement) {
     // only build a map if there's a div#map to inject into
@@ -20,6 +37,8 @@ const initMapbox = () => {
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
     });
+
+    console.log("routesArr:", routesArr);
 
     // draw routes from db (not dynamic route from mapbox directions)
     map.on("load", function () {
@@ -43,7 +62,7 @@ const initMapbox = () => {
         },
         paint: {
           "line-color": "#45286b",
-          "line-width": 1.6,
+          "line-width": 3,
         },
       });
     });
@@ -60,6 +79,29 @@ const initMapbox = () => {
     // add directions control to map
     map.addControl(directions, "top-right");
     map.scrollZoom.enable();
+
+    map.on("load", function () {
+      map.addLayer({
+        id: "previous-routes",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            properties: {},
+            features: routesArr,
+          },
+        },
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+        },
+        paint: {
+          "line-color": "#45111b",
+          "line-width": 3,
+        },
+      });
+    });
   }
 
   // save route to db and draw route on map from db
@@ -85,6 +127,7 @@ const initMapbox = () => {
           throw "Error";
         }
         return response.json();
+        // FIXME Fix this in case route not foound!!
       })
       .then((data) => {
         console.log(data);

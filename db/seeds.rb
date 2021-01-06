@@ -1,5 +1,5 @@
-# require "mapbox-sdk"
-# Mapbox.access_token = ENV['MAPBOX_API_KEY']
+require "mapbox-sdk"
+Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
 # drivingDirections = Mapbox::Directions.directions([{
 #   "longitude" => -100,
@@ -54,6 +54,7 @@
 # end
 
 # get_route('Galata Tower', 'Büyükdere Cd., İstanbul')
+
 Route.destroy_all
 User.destroy_all
 Playlist.destroy_all
@@ -74,3 +75,12 @@ Playlist.create!(
 )
 
 puts 'Playlist created'
+
+
+# start_point_coor = Geocoder.search('İstanbul Atatürk Havalimanı (ISL), Yeşilköy Mah., Bakirköy, Istanbul, Turkey')
+# end_point_coor = Geocoder.search('Athina, Attica, Greece')
+# if (start_point_coor.presence != nil && end_point_coor.presence != nil) 
+#   p start_point_coor.empty? ||  end_point_coor.empty?
+#   p end_point_coor
+# end
+
