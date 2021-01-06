@@ -12,9 +12,7 @@ const initMapbox = () => {
       // don't get last element of array
       routesArr.push({
         type: "Feature",
-        properties: {
-          color: "#F7455D", // red
-        },
+        properties: {},
         geometry: {
           type: "LineString",
           coordinates: userRoutes[i],
@@ -77,8 +75,11 @@ const initMapbox = () => {
       flyTo: false,
     });
     // add directions control to map
-    map.addControl(directions, "top-right");
-    map.scrollZoom.enable();
+    // inside
+    // map.addControl(directions, "top-right");
+    // map.scrollZoom.enable();
+    // outside
+    document.getElementById("directions").appendChild(directions.onAdd(map));
 
     map.on("load", function () {
       map.addLayer({
