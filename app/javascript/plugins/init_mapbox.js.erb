@@ -8,8 +8,8 @@ const initMapbox = () => {
   if (typeof gon !== "undefined") {
     userRoute = gon.route;
     userRoutes = gon.routes;
-
-    userRoutes.forEach((route) => {
+    for (let i = 0; i < userRoutes.length - 1; i++) {
+      // don't get last element of array
       routesArr.push({
         type: "Feature",
         properties: {
@@ -17,10 +17,22 @@ const initMapbox = () => {
         },
         geometry: {
           type: "LineString",
-          coordinates: route,
+          coordinates: userRoutes[i],
         },
       });
-    });
+    }
+    // userRoutes.forEach((route) => {
+    //   routesArr.push({
+    //     type: "Feature",
+    //     properties: {
+    //       color: "#F7455D", // red
+    //     },
+    //     geometry: {
+    //       type: "LineString",
+    //       coordinates: route,
+    //     },
+    //   });
+    // });
   } else {
     userRoute = [];
     userRoutes = [];
