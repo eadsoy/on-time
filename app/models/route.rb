@@ -1,4 +1,5 @@
 # require "mapbox-sdk"
+Mapbox.access_token = ENV['MAPBOX_API_KEY']
 class Route < ApplicationRecord
   belongs_to :user
   belongs_to :playlist
@@ -17,8 +18,15 @@ class Route < ApplicationRecord
       @start_lon_lat = start_point.chomp.split(',').map(&:to_f)
       @start_point_coor = @start_lon_lat
     else
-      @start_point_coor = Geocoder.search(start_point)
-      @start_lon_lat = [@start_point_coor.first.data['lon'].to_f, @start_point_coor.first.data['lat'].to_f]
+      # @start_point_coor = Geocoder.search(start_point)
+      @start_point_coor = Mapbox::Geocoder.geocode_forward(start_point).first['features'].first['geometry']['coordinates']
+      if @start_point_coor.present?
+        # @start_lon_lat = [@start_point_coor.first.data['lon'].to_f, @start_point_coor.first.data['lat'].to_f]
+        @start_lon_lat = @start_point_coor
+      else
+        @start_point_coor = []
+        @start_lon_lat = []
+      end
     end
 
     case match_end
@@ -26,8 +34,10 @@ class Route < ApplicationRecord
       @end_lon_lat = end_point.chomp.split(',').map(&:to_f)
       @end_point_coor = @end_lon_lat
     else
-      @end_point_coor = Geocoder.search(end_point)
-      @end_lon_lat = [@end_point_coor.first.data['lon'].to_f, @end_point_coor.first.data['lat'].to_f]
+      @end_point_coor = Mapbox::Geocoder.geocode_forward(end_point).first['features'].first['geometry']['coordinates']
+      @end_lon_lat = @end_point_coor
+      # @end_point_coor = Geocoder.search(end_point)
+      # @end_lon_lat = [@end_point_coor.first.data['lon'].to_f, @end_point_coor.first.data['lat'].to_f]
     end
   end
 

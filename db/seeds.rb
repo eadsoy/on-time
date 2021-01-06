@@ -59,7 +59,6 @@ Route.destroy_all
 User.destroy_all
 Playlist.destroy_all
   
-
 puts 'Creating User Esin'
 
 User.create!(
@@ -84,3 +83,13 @@ puts 'Playlist created'
 #   p end_point_coor
 # end
 
+# n = Geocoder.search('Genova, Metropolitan CityGenoa, Italy')
+# p n
+# m = Mapbox::Geocoder.geocode_forward('Genova, Metropolitan CityGenoa, Italy')
+# p m
+
+# m = Mapbox::Geocoder.geocode_forward('Genova, Metropolitan CityGenoa, Italy').first['features'].first['geometry']['coordinates']
+# p m
+
+# n = Geocoder.search('Genova, Italy').first.data
+# p n
