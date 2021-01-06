@@ -8,14 +8,37 @@ class Route < ApplicationRecord
   serialize :start, Array
   serialize :end, Array
   serialize :route, Array
+  
 
-
-  def self.get_route(start_point, end_point)
-    start_point_coor = Geocoder.search(start_point)
-    end_point_coor = Geocoder.search(end_point)
-    if (start_point_coor.presence != nil && end_point_coor.presence != nil) 
+  def self.validate_points(start_point, end_point)
+    regex_coordinates = '^(\[)[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)(\])$'
+    match_start = start_point.match?(regex_coordinates)
+    match_end = end_point.match?(regex_coordinates)
+    if match_start && match_end
+      start_lon_lat = [start_point]
+      end_lon_lat = [end_point]
+    elsif match_start
+      start_lon_lat = [start_point]
+      end_point_coor = Geocoder.search(end_point)
+      end_lon_lat = [end_point_coor.first.data['lon'].to_f, end_point_coor.first.data['lat'].to_f]
+    else
+      start_point_coor = Geocoder.search(start_point)
+      end_point_coor = Geocoder.search(end_point)
       start_lon_lat = [start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f]
       end_lon_lat = [end_point_coor.first.data['lon'].to_f, end_point_coor.first.data['lat'].to_f]
+    end
+    start_lon_lat
+    end_lon_lat
+  end
+
+  def self.get_route(start_point, end_point)
+    # start_point_coor = Geocoder.search(start_point)
+    # end_point_coor = Geocoder.search(end_point)
+    # regex_coordinates = '^(\[)[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)(\])$'
+    validate_points(start_point, end_point)
+    if (start_point_coor.presence != nil && end_point_coor.presence != nil)  
+      # start_lon_lat = [start_point_coor.first.data['lon'].to_f, start_point_coor.first.data['lat'].to_f]
+      # end_lon_lat = [end_point_coor.first.data['lon'].to_f, end_point_coor.first.data['lat'].to_f]
       Mapbox.access_token = ENV['MAPBOX_API_KEY']
       get_route = Mapbox::Directions.directions([
         {

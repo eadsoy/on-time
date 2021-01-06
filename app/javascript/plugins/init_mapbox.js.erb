@@ -21,18 +21,6 @@ const initMapbox = () => {
         },
       });
     }
-    // userRoutes.forEach((route) => {
-    //   routesArr.push({
-    //     type: "Feature",
-    //     properties: {
-    //       color: "#F7455D", // red
-    //     },
-    //     geometry: {
-    //       type: "LineString",
-    //       coordinates: route,
-    //     },
-    //   });
-    // });
   } else {
     userRoute = [];
     userRoutes = [];
@@ -74,7 +62,7 @@ const initMapbox = () => {
         },
         paint: {
           "line-color": "#45286b",
-          "line-width": 3,
+          "line-width": 4,
         },
       });
     });
@@ -109,8 +97,9 @@ const initMapbox = () => {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "#45111b",
-          "line-width": 3,
+          "line-color": "#90e887",
+          "line-width": 2.5,
+          "line-opacity": 0.75,
         },
       });
     });
