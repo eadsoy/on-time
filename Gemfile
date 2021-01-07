@@ -65,3 +65,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'geocoder'
 gem 'mapbox-sdk', '~> 2.0'
 gem 'gon'
+gem 'rspotify', '~> 2.10', '>= 2.10.1'

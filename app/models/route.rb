@@ -54,3 +54,5 @@ class Route < ApplicationRecord
 end
 # FIXME 
 # route.playlist, route.user
+# apply actioncable
+# move to service object
