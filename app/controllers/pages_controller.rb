@@ -24,7 +24,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def callback
+  # def callback
     # url = "https://accounts.spotify.com/authorize"
     # query_params = {
     #   client_id: ENV["SPOTIFY_CLIENT_ID"],
@@ -40,10 +40,10 @@ class PagesController < ApplicationController
     #   show_dialog: true
     # }
     # redirect_to "#{url}?#{query_params.to_query}"
-    @spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
+    # @spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
 
-    pp @spotify_user
-    pp @spotify_user.credentials
+    # pp @spotify_user
+    # pp @spotify_user.credentials
     # @spotify_user = RSpotify::User.new(
     #   {
     #     'credentials' => {
@@ -53,6 +53,6 @@ class PagesController < ApplicationController
     #     } ,
     #     'id' => self.credentials["user_id"]
     #   })
-    render :callback
-  end
+    # render :callback
+  # end
 end

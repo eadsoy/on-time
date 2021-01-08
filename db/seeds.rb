@@ -61,11 +61,11 @@ Playlist.destroy_all
   
 puts 'Creating User Esin'
 
-User.create!(
-  email: 'esin.adsoy@gmail.com',
-  password: ENV['MY_PASSWORD'] # because why not
-)
-puts 'User created'
+# User.create!(
+#   email: 'esin.adsoy@gmail.com',
+#   password: ENV['MY_PASSWORD'] # because why not
+# )
+# puts 'User created'
 
 puts 'Creating Esin\'s playlist:'
 
