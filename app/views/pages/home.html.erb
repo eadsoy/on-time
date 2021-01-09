@@ -9,11 +9,7 @@
     </div>
     <div class="col-6">
       <div id="directions" class="directions"></div>
-      <%#= simple_form_for @route do |f| %>
-          <%#= f.input :start, as: :string, input_html: { id: 'search'} %>
-          <%#= f.input :end, as: :string, input_html: { id: 'search-end'} %>
-          <%#= f.submit "Send", class: 'btn btn-dark' %>
-      <%# end %>
+
       <button type="button" id='btn-submit' class='btn btn-danger d-inline'>Select songs!</button>
       <%= link_to 'Sign in with Spotify', user_spotify_omniauth_authorize_path, class: 'btn btn-dark' %>
     </div>
@@ -30,3 +26,11 @@
   <% end %>
 </div>
 
+
+
+
+<%#= simple_form_for @route do |f| %>
+    <%#= f.input :start, as: :string, input_html: { id: 'search'} %>
+    <%#= f.input :end, as: :string, input_html: { id: 'search-end'} %>
+    <%#= f.submit "Send", class: 'btn btn-dark' %>
+<%# end %>

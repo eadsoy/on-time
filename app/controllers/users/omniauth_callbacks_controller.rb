@@ -2,7 +2,7 @@ require 'pp'
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def spotify
     @user = User.from_omniauth(request.env["omniauth.auth"])
-    pp(request.env["omniauth.auth"])
+    # RSpotify::User.find(@user.uid) will allow to find user and create playlist
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication
       set_flash_message(:notice, :success, :kind => 'Spotify') if is_navigational_format?

@@ -55,25 +55,25 @@ Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
 # get_route('Galata Tower', 'Büyükdere Cd., İstanbul')
 
-Route.destroy_all
-User.destroy_all
-Playlist.destroy_all
+# Route.destroy_all
+# User.destroy_all
+# Playlist.destroy_all
   
-puts 'Creating User Esin'
+# puts 'Creating User Esin'
 
-# User.create!(
-#   email: 'esin.adsoy@gmail.com',
-#   password: ENV['MY_PASSWORD'] # because why not
+# # User.create!(
+# #   email: 'esin.adsoy@gmail.com',
+# #   password: ENV['MY_PASSWORD'] # because why not
+# # )
+# # puts 'User created'
+
+# puts 'Creating Esin\'s playlist:'
+
+# Playlist.create!(
+#   title: 'my playlist'
 # )
-# puts 'User created'
 
-puts 'Creating Esin\'s playlist:'
-
-Playlist.create!(
-  title: 'my playlist'
-)
-
-puts 'Playlist created'
+# puts 'Playlist created'
 
 
 # start_point_coor = Geocoder.search('İstanbul Atatürk Havalimanı (ISL), Yeşilköy Mah., Bakirköy, Istanbul, Turkey')
@@ -93,3 +93,11 @@ puts 'Playlist created'
 
 # n = Geocoder.search('Genova, Italy').first.data
 # p n
+# require 'pp'
+# pp(User.last)
+# pp(RSpotify.User.all)
+# spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
+# RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
+# p = RSpotify::User.find(User.last.uid)
+
+# p p

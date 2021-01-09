@@ -8,7 +8,7 @@ class PagesController < ApplicationController
       format.json  { render :json => @routes }
     end
     @route = Route.new
-    if Route.last.present?  #FIXME use presence
+    if Route.last.present?  
       route_last = Route.last
       route_all = Route.all
       route_all_list = []
