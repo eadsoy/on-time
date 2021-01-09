@@ -296,8 +296,20 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-  config.omniauth :spotify, ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"], scope: 'user-read-email playlist-modify-public user-library-read user-library-modify', callback_url: 'http://localhost:3000/auth/spotify/callback'
-  
+  config.omniauth :spotify, 
+  ENV["SPOTIFY_CLIENT_ID"], 
+  ENV["SPOTIFY_CLIENT_SECRET"], 
+  scope: 'user-read-email 
+  playlist-modify-public 
+  playlist-modify-private 
+  user-library-read 
+  user-read-private 
+  user-modify-playback-state 
+  playlist-read-collaborative 
+  user-library-modify 
+  user-top-read', 
+  callback_url: 'http://localhost:3000/auth/spotify/callback'
+
   # ==> Turbolinks configuration
   # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work correctly:
   #
