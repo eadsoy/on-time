@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:spotify]
 
+  # devise :database_authenticatable, :recoverable, 
+  #        :rememberable, :validatable, :omniauthable, 
+  #        omniauth_providers: [:spotify]
+
   # has_one_attached :avatar
   has_many :routes
   

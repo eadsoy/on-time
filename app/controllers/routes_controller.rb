@@ -1,7 +1,7 @@
 
 class RoutesController < ApplicationController
   skip_before_action :authenticate_user!
-   
+  
   def create
     @start = params[:route][:start]
     @end = params[:route][:end]
