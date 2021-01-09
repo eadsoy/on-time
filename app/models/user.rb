@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:spotify]
 
-  has_one_attached :avatar
+  # has_one_attached :avatar
   has_many :routes
   
   # overwriting new_with_session function
@@ -27,7 +27,8 @@ class User < ApplicationRecord
       user.uid = auth.uid
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      user.avatar = auth.images.first.url
+      # user.avatar = auth.info.images.first.url
     end
   end
 end
+
