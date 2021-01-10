@@ -8,6 +8,7 @@ class RoutesController < ApplicationController
     @end = params[:route][:end]
     route_params = Route.get_route(@start, @end)
     @route = Route.new(route_params)
+    @route.user = current_user
     if route_params.present?
       if @route.save!
         flash[:notice] = '🥳 Check your route on the map!'

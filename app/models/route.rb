@@ -2,7 +2,6 @@
 Mapbox.access_token = ENV['MAPBOX_API_KEY']
 class Route < ApplicationRecord
   belongs_to :user
-  belongs_to :playlist
   # store :route, accessors: [ :start, :end ]
   serialize :start, Array
   serialize :end, Array
@@ -46,8 +45,6 @@ class Route < ApplicationRecord
       route_params[:duration] = get_route.first['routes'].first['duration']
       route_params[:start] = @start_lon_lat
       route_params[:end] = @end_lon_lat
-      route_params[:user] = User.last #FIXME temporary 
-      route_params[:playlist] = Playlist.last # FIXME temporary
     end
     route_params
   end
