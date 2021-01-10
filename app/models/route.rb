@@ -30,7 +30,7 @@ class Route < ApplicationRecord
   def self.get_route(start_point, end_point)
     validate_points(start_point, end_point)
     route_params = {}
-    if (@start_lon_lat.present?  && @end_lon_lat.present?)  
+    if (@start_lon_lat.present? && @end_lon_lat.present?)  
       get_route = Mapbox::Directions.directions([
         {
           "longitude" => @start_lon_lat.first,
@@ -46,8 +46,8 @@ class Route < ApplicationRecord
       route_params[:duration] = get_route.first['routes'].first['duration']
       route_params[:start] = @start_lon_lat
       route_params[:end] = @end_lon_lat
-      route_params[:user] = User.last
-      route_params[:playlist] = Playlist.last
+      route_params[:user] = User.last #FIXME temporary 
+      route_params[:playlist] = Playlist.last # FIXME temporary
     end
     route_params
   end
