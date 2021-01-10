@@ -93,11 +93,24 @@ Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
 # n = Geocoder.search('Genova, Italy').first.data
 # p n
+# require 'rspotify'
+# require 'rspotify/oauth'
 # require 'pp'
 # pp(User.last)
 # pp(RSpotify.User.all)
 # spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
 # RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
-# p = RSpotify::User.find(User.last.uid)
+# # p = RSpotify::User.find(User.last.uid)
+# @user = User.last
+# # p p
+# me = RSpotify::User.find(@user.uid)
+# # spot_me = RSpotify::User.new(params[RSpotify::User.find(@user.uid)])
+# p me
+# @user = User.last
+# spotify_user = RSpotify::User.find('guilhermesad')
 
-# p p
+# pp(me.top_artists)
+# pp(me.top_tracks)
+
+
+# n = SpotifySearcher.test_create_playlist

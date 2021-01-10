@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_084441) do
+ActiveRecord::Schema.define(version: 2021_01_10_200328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_084441) do
     t.bigint "playlist_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "track_id"
     t.index ["playlist_id"], name: "index_tracks_on_playlist_id"
   end
 
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_084441) do
     t.string "uid"
     t.string "provider"
     t.boolean "admin", default: false, null: false
+    t.text "credential_data"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   # has_one_attached :avatar
   has_many :routes
+  serialize :credential_data
   
   # overwriting new_with_session function
   def self.new_with_session(params, session)
