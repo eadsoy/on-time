@@ -12,9 +12,9 @@ class RoutesController < ApplicationController
     if route_params.present?
       if @route.save!
         flash[:notice] = '🥳 Check your route on the map!'
-        redirect_to root_path 
+        redirect_to root_path #FIXME
       else
-        redirect_to root_path 
+        redirect_to root_path #FIXME
       end 
     else
       flash[:alert] = '🚨 Please enter another route'
