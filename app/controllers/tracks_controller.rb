@@ -1,4 +1,6 @@
 class TracksController < ApplicationController
-  def spotify
+  def create
+    # call job here
+    # SpotifyJob.perform
   end
 end

@@ -142,11 +142,13 @@ const initMapbox = () => {
 
   let start, end;
   inputStart.addEventListener("change", function () {
+    // function declaration for context
     start = this.value;
     console.log(start);
   });
 
   inputEnd.addEventListener("change", function () {
+    // function declaration for context
     end = this.value;
     console.log(end);
   });

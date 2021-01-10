@@ -1,7 +1,7 @@
-class TestJob < ApplicationJob
+class SpotifyJob < ApplicationJob
   queue_as :default
 
   def perform
-    # call SpotSearch.something.perform here
+    # call SpotifySearcher.something here
   end
 end
