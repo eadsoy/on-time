@@ -1,7 +1,8 @@
 require 'pp'
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
-  
+  # skip_before_action :authenticate_user!, only: [:home]
+  before_action :authenticate_user!
+
   def home
     respond_to do |format|
       format.html  
@@ -11,16 +12,17 @@ class PagesController < ApplicationController
     if Route.last.present?  
       route_last = Route.last
       route_all = Route.all
-      route_all_list = []
+      routes = []
+      route_all.each do |route|
+        routes << route.route
+      end
+      gon.routes = routes
+
       gon.start = route_last.start
       gon.end = route_last.end
       gon.route = route_last.route
       gon.duration = route_last.duration
       gon.distance = route_last.distance
-      route_all.each do |route|
-        route_all_list << route.route
-      end
-      gon.routes = route_all_list
     end
   end
 
