@@ -2,7 +2,7 @@ require 'pp'
 class SpotifySearcher
   # Search spotify here
   def self.test_create_playlist(user)
-    RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
+    authenticate
     @spotify_user = RSpotify::User.new(user.credential_data)
     # @spotify_user.create_playlist!('my_awesome_playlist')
     @top_artists = @spotify_user.top_artists # returns 4 artists
@@ -26,5 +26,11 @@ class SpotifySearcher
     # playlists = RSpotify::Playlist.search('Indie')
     # playlists.first.name #=> "The Indie Mix"
 
+  end
+
+  private
+  
+  def self.authenticate
+    RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
   end
 end

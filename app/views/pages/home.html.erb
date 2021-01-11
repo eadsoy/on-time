@@ -11,10 +11,16 @@
       <div id="directions" class="directions"></div>
 
       <button type="button" id='btn-submit' class='btn btn-danger d-inline'>Create Route</button>
+
+      <button type="button" id='btn-try' class='btn btn-danger d-inline'>TRY</button>
+
+
       <%= form_with url: "/tracks", method: :post do |form| %>
         <%= form.label :query, "Search for:" %>
         <%= form.submit "Find songs" %>
       <% end %>
+
+
       <%= link_to 'Sign in with Spotify', user_spotify_omniauth_authorize_path, class: 'btn btn-dark' %>
     </div>
   </div>
