@@ -3,5 +3,6 @@ class SpotifyJob < ApplicationJob
 
   def perform
     # call SpotifySearcher.something here
+    SpotifySearcher.test_create_playlist
   end
 end

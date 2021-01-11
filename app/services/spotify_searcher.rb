@@ -11,14 +11,18 @@ class SpotifySearcher
     top_artists = @spotify_user.top_artists # returns 4 artists
     top_tracks = @spotify_user.top_tracks # returns 20 tracks
     
-    recommendations = RSpotify::Recommendations.generate(seed_tracks: top_tracks.map(&:id))
-    recommendations = RSpotify::Recommendations.generate(seed_artists: top_artists.map(&:id))
+    recommendations_1 = RSpotify::Recommendations.generate(seed_tracks: top_tracks.map(&:id))
+    # recommendations_2 = RSpotify::Recommendations.generate(seed_artists: top_artists.map(&:id))
+    @tracks = []
+    recommendations_1.each do |track|
+      @tracks << track.id
+    end
+    @tracks
+    # party = RSpotify::Category.find('party')
+    # party.playlists #=> (Playlist array)
 
-    party = RSpotify::Category.find('party')
-    party.playlists #=> (Playlist array)
-
-    playlists = RSpotify::Playlist.search('Indie')
-    playlists.first.name #=> "The Indie Mix"
+    # playlists = RSpotify::Playlist.search('Indie')
+    # playlists.first.name #=> "The Indie Mix"
 
   end
 end

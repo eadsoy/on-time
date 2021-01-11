@@ -5,8 +5,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
     @user.credential_data = spotify_user.to_hash
     @user.save!
-    p @user.credential_data
-    # RSpotify::User.find(@user.uid) will allow to find user and create playlist
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication
       set_flash_message(:notice, :success, :kind => 'Spotify') if is_navigational_format?
