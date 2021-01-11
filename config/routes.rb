@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   resources :routes, only: :create
   # get 'users/auth/spotify/callback', to: 'callbacks#spotify'
 
-  resources :playlists, only: [:create, :index, :show] do
-    resources :tracks, only: :create
-  end
-
+  # resources :playlists, only: [:create, :index, :show] do
+  #   resources :tracks, only: :create
+  # end
+  resources :tracks, only: [:create]
   require "sidekiq/web"
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'

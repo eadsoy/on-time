@@ -1,6 +1,8 @@
 class TracksController < ApplicationController
   def create
     # call job here
-    SpotifyJob.perform_later
+    @user = current_user
+    SpotifyJob.perform_now(@user)
+    redirect_to root_path
   end
 end

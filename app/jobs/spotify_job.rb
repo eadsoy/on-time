@@ -1,8 +1,8 @@
 class SpotifyJob < ApplicationJob
   queue_as :default
 
-  def perform
+  def perform(user)
     # call SpotifySearcher.something here
-    SpotifySearcher.test_create_playlist
+    SpotifySearcher.test_create_playlist(user)
   end
 end
