@@ -17,7 +17,6 @@ class Route < ApplicationRecord
     else
       @start_lon_lat = Mapbox::Geocoder.geocode_forward(start_point).first['features'].first['geometry']['coordinates']
     end
-
     case match_end
     when true
       @end_lon_lat = end_point.chomp.split(',').map(&:to_f)
@@ -49,7 +48,3 @@ class Route < ApplicationRecord
     route_params
   end
 end
-# FIXME 
-# route.playlist, route.user
-# apply actioncable
-# move to service object

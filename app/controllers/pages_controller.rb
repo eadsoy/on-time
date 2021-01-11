@@ -4,10 +4,6 @@ class PagesController < ApplicationController
   before_action :authenticate_user!
 
   def home
-    respond_to do |format|
-      format.html  
-      format.json  { render :json => @routes }
-    end
     @route = Route.new
     if Route.last.present?  
       route_last = Route.last
@@ -17,12 +13,15 @@ class PagesController < ApplicationController
         routes << route.route
       end
       gon.routes = routes
-
       gon.start = route_last.start
       gon.end = route_last.end
       gon.route = route_last.route
       gon.duration = route_last.duration
       gon.distance = route_last.distance
+      respond_to do |format|
+        format.html  
+        format.json  { render :json => @routes }
+      end
     end
   end
 
