@@ -5,13 +5,12 @@ class SpotifySearcher
     authenticate
     @spotify_user = RSpotify::User.new(user.credential_data)
     # @spotify_user.create_playlist!('my_awesome_playlist')
-    @top_artists = @spotify_user.top_artists # returns 4 artists
-    # top_tracks = @spotify_user.top_tracks # returns 20 tracks
+    top_artists = @spotify_user.top_artists # returns 4 artists
+    top_tracks = @spotify_user.top_tracks # returns 20 tracks
     
-    # recommendations_1 = RSpotify::Recommendations.generate(seed_tracks: top_tracks.map(&:id))
-    # recommendations_2 = RSpotify::Recommendations.generate(seed_artists: top_artists.map(&:id))
-    puts @spotify_user
-    puts @top_artists
+    recommendations_1 = RSpotify::Recommendations.generate(seed_tracks: top_tracks.map(&:id))
+    recommendations_2 = RSpotify::Recommendations.generate(seed_artists: top_artists.map(&:id))
+    
     # playlists = RSpotify::Playlist.search('Indie')
     # name = playlists.first.name #=> "The Indie Mix"
     # p name
@@ -29,7 +28,7 @@ class SpotifySearcher
   end
 
   private
-  
+
   def self.authenticate
     RSpotify.authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
   end

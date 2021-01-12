@@ -27,12 +27,13 @@ class PagesController < ApplicationController
 
   def gon_params
     @route_last = Route.last
-    gon.token = @user.credential_data['credentials'].refresh_token
     gon.routes = @routes_arr
     gon.start = @route_last.start
     gon.end = @route_last.end
     gon.route = @route_last.route
     gon.duration = @route_last.duration
     gon.distance = @route_last.distance
+    gon.refresh_token = @user.credential_data['credentials'].refresh_token
+    gon.token = @user.credential_data['credentials'].token
   end
 end
