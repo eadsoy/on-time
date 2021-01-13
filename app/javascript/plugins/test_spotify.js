@@ -5,6 +5,7 @@ const spotifySearchTest = () => {
   const buttonRefresh = document.getElementById("btn-try-again");
   const tracksUrl = "https://api.spotify.com/v1/me/top/tracks";
   const baseUrl = "https://api.spotify.com/v1/me/top/artists";
+  let container = document.querySelector('.container');
   let tracks = [];
   let artists = [];
   let recommendations = [];
@@ -22,8 +23,8 @@ const spotifySearchTest = () => {
     artists = [];
     artistsParam = "";
     tracksParam = "";
-    durationParam = 0;
     duration = 0;
+    container.insertAdjacentHTML('beforeend', '');
   }
   
   // get User's top artists
@@ -113,8 +114,11 @@ const spotifySearchTest = () => {
               name: track.name, 
               duration: track.duration_ms
             });
+            const tracksPlayer = `<div id="tracks--${track.id}"><iframe src="https://open.spotify.com/embed/track/${track.id}" height="250" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>`;
+            container.insertAdjacentHTML('beforeend', tracksPlayer);
           }
         })
+        
       })
       .then(emptyParams);
   }
@@ -124,6 +128,7 @@ const spotifySearchTest = () => {
   });
 
   buttonRefresh.addEventListener("click", function () {
+    emptyParams();
     getUserArtists();
   });
 };
