@@ -113,13 +113,6 @@ const spotifySearchTest = () => {
               name: track.name, 
               duration: track.duration_ms
             });
-          } else {
-            duration += track[recommendations.length].duration_ms
-            recommendations.push({
-              id: track[recommendations.length].id, 
-              name: track[recommendations.length].name, 
-              duration: track[recommendations.length].duration_ms
-            });
           }
         })
       })
