@@ -1,28 +1,29 @@
 const spotifySearchTest = () => {
-  const routeDuration = gon.duration;
+  const routeDuration = parseInt(gon.duration.toString().replace(".", ""), 10);
   const token = gon.token;
-
   const button = document.getElementById("btn-try");
   const buttonRefresh = document.getElementById("btn-try-again");
-
   const tracksUrl = "https://api.spotify.com/v1/me/top/tracks";
   const baseUrl = "https://api.spotify.com/v1/me/top/artists";
+  let tracks = [];
+  let artists = [];
+  let recommendations = [];
+  let artistsParam = "";
+  let tracksParam = "";
+  let duration = 0;
 
-  const tracks = [];
-  const artists = [];
-  const artistsParam = "";
-  const tracksParam = "";
-  
   // calculate track number based on route duration
-  const durationParam = Math.floor(routeDuration / 210.000);
+  let durationParam = Math.floor(routeDuration / 210000);
+  console.log(routeDuration);
 
-  // delete previous params for new request
+  // delete previous data for new request
   const emptyParams = () => {
     tracks = [];
     artists = [];
     artistsParam = "";
     tracksParam = "";
     durationParam = 0;
+    duration = 0;
   }
   
   // get User's top artists
@@ -55,7 +56,6 @@ const spotifySearchTest = () => {
         }
       })
       .then(getUserTracks);
-      
   };
   
   // get User's top tracks
@@ -104,15 +104,30 @@ const spotifySearchTest = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => {   
-        console.log(data);
+      .then((data) => {
+        data.tracks.forEach((track) => {
+          if (duration <= routeDuration) {
+            duration += track.duration_ms
+            recommendations.push({
+              id: track.id, 
+              name: track.name, 
+              duration: track.duration_ms
+            });
+          } else {
+            duration += track[recommendations.length].duration_ms
+            recommendations.push({
+              id: track[recommendations.length].id, 
+              name: track[recommendations.length].name, 
+              duration: track[recommendations.length].duration_ms
+            });
+          }
+        })
       })
       .then(emptyParams);
   }
 
   button.addEventListener("click", function () {
-    getUserArtists();
-    
+    getUserArtists();   
   });
 
   buttonRefresh.addEventListener("click", function () {
