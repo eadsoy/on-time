@@ -1,27 +1,31 @@
 const spotifySearchTest = () => {
   const routeDuration = gon.duration;
-  let durationParam = Math.floor(routeDuration / 210.000)
-  console.log(routeDuration);
-  console.log(durationParam);
   const token = gon.token;
+
   const button = document.getElementById("btn-try");
   const buttonRefresh = document.getElementById("btn-try-again");
+
   const tracksUrl = "https://api.spotify.com/v1/me/top/tracks";
   const baseUrl = "https://api.spotify.com/v1/me/top/artists";
-  let tracks = [];
-  let artists = [];
-  let artistsParam = "";
-  let tracksParam = "";
-  let duration = 0;
 
+  const tracks = [];
+  const artists = [];
+  const artistsParam = "";
+  const tracksParam = "";
+  
+  // calculate track number based on route duration
+  const durationParam = Math.floor(routeDuration / 210.000);
+
+  // delete previous params for new request
   const emptyParams = () => {
     tracks = [];
     artists = [];
     artistsParam = "";
     tracksParam = "";
+    durationParam = 0;
   }
   
-  // get User's top artists and tracks
+  // get User's top artists
   const getUserArtists = () => {
     fetch(`${baseUrl}`, {
       method: "GET",
@@ -34,7 +38,11 @@ const spotifySearchTest = () => {
       .then((response) => response.json())
       .then((data) => {
         data.items.forEach((res) => {
-          artists.push({'id': res.id, 'name': res.name, duration: res.duration_ms}); 
+          artists.push({
+            id: res.id, 
+            name: res.name, 
+            duration: res.duration_ms
+          }); 
         })
         console.log(data);
         if (artists.length === 1 ) {
@@ -49,7 +57,8 @@ const spotifySearchTest = () => {
       .then(getUserTracks);
       
   };
-
+  
+  // get User's top tracks
   const getUserTracks = () => {
     fetch(`${tracksUrl}`, {
       method: "GET",
@@ -62,7 +71,11 @@ const spotifySearchTest = () => {
       .then((response) => response.json())
       .then((data) => {
         data.items.forEach((res) => {
-          tracks.push({id: res.id, name: res.name, duration: res.duration_ms}); 
+          tracks.push({
+            id: res.id, 
+            name: res.name, 
+            duration: res.duration_ms
+          }); 
         })
         if (tracks.length === 1 ) {
           tracksParam += tracks[Math.floor(Math.random() * tracks.length)].id
@@ -76,15 +89,6 @@ const spotifySearchTest = () => {
       })
       .then(getRecommendations); 
   };
-
-  // const calculatePlaylist = () => {
-  //   if (duration < routeDuration) {
-  //     getUserArtists();
-  //   } else if (duration > routeDuration) {
-  //     (let i = 0)
-  //   }
-  //   console.log(duration);
-  // }
 
   // get recommendations based on user's top artist, tracks and selected category.
   const getRecommendations = () => {
@@ -101,12 +105,8 @@ const spotifySearchTest = () => {
     })
       .then((response) => response.json())
       .then((data) => {   
-        // data.tracks.forEach(track => {
-        //   duration += track.duration_ms;
-        // })
         console.log(data);
       })
-      // .then(calculatePlaylist)
       .then(emptyParams);
   }
 
