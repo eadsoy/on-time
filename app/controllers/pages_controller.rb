@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   def home
     @route = Route.new
     @user = current_user
+    @spotify_user = RSpotify::User.new(@user.credential_data)
     if Route.last.present?  
       get_routes_arr
       gon_params
@@ -33,7 +34,7 @@ class PagesController < ApplicationController
     gon.route = @route_last.route
     gon.duration = @route_last.duration
     gon.distance = @route_last.distance
-    gon.refresh_token = @user.credential_data['credentials'].refresh_token
-    gon.token = @user.credential_data['credentials'].token
+    gon.refresh_token = @spotify_user.credentials.refresh_token
+    gon.token = @spotify_user.credentials.token
   end
 end
