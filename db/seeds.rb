@@ -55,25 +55,25 @@ Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
 # get_route('Galata Tower', 'Büyükdere Cd., İstanbul')
 
-# Route.destroy_all
-# User.destroy_all
-# Playlist.destroy_all
+Route.destroy_all
+User.destroy_all
+Playlist.destroy_all
   
-# puts 'Creating User Esin'
+puts 'Creating User Esin'
 
-# # User.create!(
-# #   email: 'esin.adsoy@gmail.com',
-# #   password: ENV['MY_PASSWORD'] # because why not
-# # )
-# # puts 'User created'
-
-# puts 'Creating Esin\'s playlist:'
-
-# Playlist.create!(
-#   title: 'my playlist'
+# User.create!(
+#   email: 'esin.adsoy@gmail.com',
+#   password: ENV['MY_PASSWORD'] # because why not
 # )
+# puts 'User created'
 
-# puts 'Playlist created'
+puts 'Creating Esin\'s playlist:'
+
+Playlist.create!(
+  title: 'my playlist'
+)
+
+puts 'Playlist created'
 
 
 # start_point_coor = Geocoder.search('İstanbul Atatürk Havalimanı (ISL), Yeşilköy Mah., Bakirköy, Istanbul, Turkey')
